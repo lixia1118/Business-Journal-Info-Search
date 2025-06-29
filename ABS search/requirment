@@ -1,0 +1,10 @@
+我有一份每个学术期刊的ABS分类和相关信息，我想做一个搜寻软件，输入期刊名，就可以输出该期刊的ABS分类、出版社等信息
+
+请用python写一个软件，输入期刊名，就可以输出该期刊的ABS分类、出版社等信息，GUI设计好看一些
+
+我现在有更多其他信息想与 最新ABS评级.xlsx 合并起来：
+1. 合并 最新ABS评级.xlsx 和 journal info文件夹中的 JCR2023-UTF8.csv（我需要这张表中的ISSN、Web of Science、IF(2023)、IF Quartile），左边的键是Print_issn，右边的键是ISSN，以左边为准
+2. 之后，我还需要将 最新ABS评级.xlsx 与 journal info/FMS 高质量国际期刊列表.xlsx（我需要ISSN、FMS等级） 合并，左边的键是Print_issn，右边的键是ISSN，以左边为准
+3. 之后，我还需要将 最新ABS评级.xlsx 与 journal info/FQBJCR2023-UTF8.csv（我需要这张表中的ISSN、2023年中科院大类、2023年中科院大类分区、是否中科院Top期刊）合并，左边的键是Print_issn，右边的键是ISSN，以左边为准
+
+我有一个数据是 journal info/ABDC-JQL-2022-v3-100523.xlsx，有个表单是2022 JQL，请帮我把里面的ISSN、ISSN Online中的空格清理掉，然后保存为新的Excel文件，使用Python
