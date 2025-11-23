@@ -1,11 +1,61 @@
-本项目的原始数据来源于[ShowJCR项目](https://github.com/hitfyd/ShowJCR/tree/master)，但是仅提供**经管外文期刊**[^1]的信息查询，包括：**基本信息**、**英国ABS评级信息**、**澳洲ABDC评级信息**、**JCR分区及影响因子信息**、**中科院分区信息**、**FMS评级信息**等，只需输入期刊名或其ISSN值即可，支持模糊搜索。
-[^1]: 被英国商学院协会（ABS）采纳的期刊认定为经管期刊
 
-手动更新数据与代码的步骤如下：
-1. 在*ABS search/journal info*文件夹中添加新的评级数据文件（csv格式）
-2. 运行*ABS search/merge data.py*以合并所有csv数据，注意更改字段名称（比如2024可能要改为2025），与新数据的字段要保持一致
-3. 修改*ABS search/src/journal_search.py*中相应部分的字段名称，与前面保持一致
-4. 运行*data/convert_to_sqlite.py*，将合并后的.xlxs文件转换为更轻量的.db文件
-5. 分别在*ABS search/build.py*、*ABS search/src/journal_search.py*中修改版本名称（例如“商科外文期刊查询系统 V.1.2”）
-6. 运行*ABS search/build.py*即可生成可以直接运行的.exe文件（在*dist*文件夹中）
-至此，更新工作结束，Enjoy~
+# **商科外文期刊查询系统**
+
+## 项目简介
+
+本项目的数据源参考了 [ShowJCR 项目](https://github.com/hitfyd/ShowJCR/tree/master)，但在其基础上进行了特定的筛选与优化。
+
+**核心定位**：本项目专注于 **经管类外文期刊**[^1] 的综合信息查询。
+
+用户只需输入 **期刊名称** 或 **ISSN**（支持模糊搜索），即可一键获取以下多维度的评级与分区信息：
+
+*   **基本信息**：期刊全称、ISSN 等。
+*   **ABS 评级**：英国商学院协会（Chartered Association of Business Schools）评级。
+*   **ABDC 评级**：澳洲商学院院长理事会（Australian Business Deans Council）评级。
+*   **JCR 指标**：包括 JCR 分区及最新影响因子（Impact Factor）。
+*   **中科院分区**：中国科学院文献情报中心期刊分区数据。
+*   **FMS 评级**：FMS 管理科学高质量期刊推荐列表。
+
+[^1]: 本项目对“经管期刊”的界定标准为：被英国商学院协会（ABS）列表收录的期刊。
+
+---
+
+## 开发者指南：数据更新与打包
+
+若需手动更新年份数据或修改代码逻辑，请严格按照以下步骤操作：
+
+### 1. 导入新数据
+将包含最新评级数据的 `.csv` 文件放入以下目录：
+> `ABS search/journal info`
+
+### 2. 合并数据
+运行数据合并脚本：
+> `ABS search/merge data.py`
+
+*   **注意**：请务必检查代码中的字段名称映射。如果更新了年份（例如从 2024 年更新到 2025 年），需手动修改代码中的字段名，确保与新 CSV 文件中的表头保持一致。
+
+### 3. 更新查询逻辑
+根据上一步合并后的新字段，修改主查询程序的逻辑：
+> 编辑 `ABS search/src/journal_search.py`
+
+确保其中的字段引用与合并后的数据结构一致。
+
+### 4. 数据库转换
+为了提升程序运行效率，需将合并后的 Excel 文件转换为 SQLite 数据库：
+> 运行 `data/convert_to_sqlite.py`
+
+此步骤将生成更轻量级的 `.db` 文件。
+
+### 5. 更新版本号
+在重新打包前，请修改显示的软件版本名称（例如：“商科外文期刊查询系统 V.1.2”）。需要同时修改以下两个文件：
+*   `ABS search/build.py`
+*   `ABS search/src/journal_search.py`
+
+### 6. 打包发布
+运行构建脚本生成可执行文件：
+> `ABS search/build.py`
+
+运行结束后，您可以在 **`dist`** 文件夹中找到生成的 `.exe` 文件。
+
+---
+*至此，更新工作结束，Enjoy!~*
